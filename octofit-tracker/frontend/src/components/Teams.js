@@ -41,7 +41,7 @@ function Teams() {
                     <tr key={team._id || index}>
                       <td>{index + 1}</td>
                       <td><strong>{team.name}</strong></td>
-                      <td>{Array.isArray(team.members) ? team.members.map((m, i) => (<span key={i} className="badge bg-secondary me-1">{m}</span>)) : team.members}</td>
+                      <td>{Array.isArray(team.members) ? team.members.map((m, i) => (<span key={m} className="badge bg-secondary me-1">{m}</span>)) : team.members}</td>
                     </tr>
                   ))
                 )}

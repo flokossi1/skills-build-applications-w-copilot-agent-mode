@@ -133,13 +133,26 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# Static files (CSS, JavaScript, Images)
+
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
 
 # CORS configuration
-CORS_ALLOW_ALL_ORIGINS = True
+if DEBUG:
+    # In development, allow all origins for convenience.
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    # In production, restrict CORS to explicitly allowed origins.
+    CORS_ALLOW_ALL_ORIGINS = False
+    # Expected format for CORS_ALLOWED_ORIGINS env var:
+    # "https://example.com,https://app.example.com"
+    _cors_allowed_origins_env = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+    CORS_ALLOWED_ORIGINS = [
+        origin.strip()
+        for origin in _cors_allowed_origins_env.split(',')
+        if origin.strip()
+    ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['*']
